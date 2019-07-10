@@ -52,9 +52,10 @@ temporal proximity of predicted and actual transitions. Preferences beyond a
 specified \code{window_size} are not allowed.
 }
 \examples{
-predictions <- sample(c(0,1), 100, TRUE, c(3, 1))
-references  <- sample(c(0,1), 100, TRUE, c(4,1))
-transitions <- get_transition_info(predictions, references, 10)
+predictions <- (sample(1:100)\%\%2)
+references  <- (sample(1:100)\%\%2)
+window_size <- 7
+transitions <- get_transition_info(predictions, references, window_size)
 summary(transitions)
 }
 \keyword{internal}
