@@ -15,10 +15,10 @@
 #' @name PAutilities
 NULL
 
-#' @import ggplot2 dplyr
+#' @import ggplot2 dplyr methods
 NULL
 
-#' @importFrom magrittr %>%
+#' @importFrom magrittr %>% %T>%
 NULL
 
 #' @importFrom stats sd median quantile
@@ -26,3 +26,12 @@ NULL
 
 #' @importFrom rlang :=
 NULL
+
+#' @importFrom graphics par plot title
+NULL
+
+utils::globalVariables(c(
+  "x_label", "CI_low", "CI_high",
+  "CI_sig", "low", "high", "vartype",
+  "."
+))

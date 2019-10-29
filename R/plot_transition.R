@@ -1,6 +1,6 @@
 #' Plot the transitions and matchings from a \code{transition} object
 #'
-#' @param x the object to print
+#' @param x the object to plot
 #' @param ... further methods passed to or from methods, currently unused
 #'
 #' @return A plot of the predicted and actual transitions in a \code{transition}
@@ -15,13 +15,16 @@
 #' plot(transitions)
 plot.transition <- function(x, ...) {
 
-  x$college_prediction <-
-    unname(sapply(as.character(x$college_prediction), function(x)
-      switch(x, "0" = 3, "1" = 2)))
+  x$predictions <-
+    as.character(x$predictions) %>%
+    sapply(function(x) switch(
+      x, "0" = 3, "1" = 2
+    )) %>%
+    unname(.)
 
-  graphics::plot(seq(length(x$student_reference)),
-    x$student_reference,
-    # "l",
+  graphics::plot(
+    seq(length(x$references)),
+    x$references,
     pch = 16,
     ylab = "",
     yaxt = "n",
@@ -36,18 +39,29 @@ plot.transition <- function(x, ...) {
   graphics::mtext("Prediction", line = 3)
 
   graphics::points(
-    seq(length(x$college_prediction)), x$college_prediction
+    seq(length(x$predictions)),
+    x$predictions
   )
 
-  sapply(seq(nrow(x$matchings)), function(i) {
-    if (x$matchings$rejected[i]) line_col <- "red" else line_col <- "blue"
-    graphics::lines(
-      c(x$matchings$Reference_Index[i], x$matchings$Prediction_Index[i]),
-      c(1,2),
-      col = line_col
-    )}
-  )
+  if (nrow(x$matchings) > 0) {
+    sapply(
+      seq(nrow(x$matchings)), function(i) {
 
+        if (x$matchings$rejected[i]) {
+          line_col <- "red"
+        } else {
+          line_col <- "blue"
+        }
+
+        graphics::lines(
+          c(x$matchings$Reference_Index[i], x$matchings$Prediction_Index[i]),
+          c(1,2),
+          col = line_col
+        )
+
+      }
+    )
+  }
   invisible()
 
 }
