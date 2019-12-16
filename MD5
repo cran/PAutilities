@@ -1,6 +1,6 @@
-d03953357cb043f3b054530f0c1de42e *DESCRIPTION
+62e97f93c25c39dfc94ddaece70c1a7a *DESCRIPTION
 664f908df9f9f6e4bdec863e1239d37b *NAMESPACE
-cc7e4928724877dea9f048fb4187ed57 *NEWS.md
+f3c8c2a596481a4c80bf12aa59a8d1ed *NEWS.md
 40ba35f0dff8929472ae4d40da6ee7fb *R/Data.R
 8f1ad5b07be4c4d4a989561cd59ad8b8 *R/Metabolic_Equations.R
 3d7cf09b3ba728d8011d2ce86df76913 *R/PAutilities.R
@@ -35,9 +35,13 @@ cac6082674bb7359cdcc58626b172dc0 *R/summary_transition.R
 1ca626236287819ca14f63a85641d6ed *R/sysdata.rda
 8f16157fbf02e07658c2708bed122f50 *R/test_errors.R
 5a54fcf01563880b0a9a0e779e68236e *R/zzz.R
-dbd30ef94d03808fd597d15610a5a443 *README.md
+a8b73c13c435fc6942f774b5d3244d2b *README.md
+96ef681dc55f4a2598a926265841ad28 *build/vignette.rds
 842e508ba76fcf25b8da040007564854 *data/ex_data.rda
 80a2c4846d59987afb3073d8d6177fa4 *inst/CITATION
+178e8516258d895b47e38f2aaf26e40c *inst/doc/tpm.R
+6e3057f5ca614b9f34225a2b4dfba2e2 *inst/doc/tpm.Rmd
+6fa9c7e0c16b3c8bc7870dc8e99e427f *inst/doc/tpm.html
 f4b205eef7e4e7d88037b12340076e7f *man/PAutilities.Rd
 a050eb595786fc8f8ec4daf5c04b5700 *man/add_summaryTransition.Rd
 028105902007241687fbbe671f59ec54 *man/as.Rd
@@ -84,3 +88,4 @@ ef8d7b01fa3bd5f2b7e9ff0f1deefbf8 *tests/testthat.R
 d151cce1cf371c07ef975b61bcf7e0f3 *tests/testthat/test_transitions.R
 3a09e46ead4c31eed967d389cb6f20b9 *tests/testthat/transition_info.rds
 fba43afc68f80a6252758f26eea6b896 *tests/testthat/transition_summary.rds
+6e3057f5ca614b9f34225a2b4dfba2e2 *vignettes/tpm.Rmd
