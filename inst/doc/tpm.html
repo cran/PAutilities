@@ -325,15 +325,13 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt; 1               0.3+/-0.5             -0.06060606             0.6092718</span></a>
 <a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt;   mean_sd_signed_lag_indices recall precision rmse_lag_indices rmse_prop</span></a>
 <a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; 1                -0.06+/-0.6   0.66      0.66              0.6 0.9142857</span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt;   aggregated_performance Rand_Index_Rand Rand_Index_HA Rand_Index_MA</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt; 1              0.7447619       0.9690909     0.2521551     0.4890667</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;   Rand_Index_FM Rand_Index_Jaccard</span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt; 1     0.2679457          0.1546961</span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16">  <span class="co"># or:</span></a>
-<a class="sourceLine" id="cb5-17" data-line-number="17">  <span class="co"># slot(summarized1, &quot;result&quot;)</span></a></code></pre></div>
-<p><strong>NOTE:</strong> The output includes several versions of the <a href="https://www.tandfonline.com/doi/abs/10.1207/s15327906mbr2104_5">Rand Index</a>. Although it’s not recommendable to use the rand index (for similar reasons to the Needleman-Wunsch algorithm, as discussed elsewhere), it is included for completeness since it is technically applicable to this data and easy to interpret. (Essentially it gives a score between 0 and 1, reflective of how well aligned the criterion and predicted segments are. The different values represent different adjustments. See also the <a href="https://www.sciencedirect.com/science/article/pii/S0167947306004786">CLUES</a> paper and its related <a href="https://cran.r-project.org/package=clues">R package</a>.)</p>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt;   aggregated_performance</span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt; 1              0.7447619</span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14">  <span class="co"># or:</span></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15">  <span class="co"># slot(summarized1, &quot;result&quot;)</span></a></code></pre></div>
+<p><strong>NOTE:</strong> One or more versions prior to <code>PAutilities 1.0.0</code> included the <a href="https://www.tandfonline.com/doi/abs/10.1207/s15327906mbr2104_5">Rand Index</a> (in various forms) in the output. The <a href="https://cran.r-project.org/package=clues">associated package</a> is no longer supported, so this feature has been removed. At any rate, it’s not recommendable to use the Rand index, for similar reasons to the Needleman-Wunsch algorithm, as discussed elsewhere. (Background: Essentially the Rand index gives a score between 0 and 1, reflective of how well aligned the criterion and predicted segments are. Different adjustments can be applied, which you can read about in the <a href="https://www.sciencedirect.com/science/article/pii/S0167947306004786">CLUES paper</a>.)</p>
 <p><br /></p>
 <p><strong>ANOTHER NOTE:</strong> The <code>result</code> slot also includes some extra variables, such as signed lags. Two important variables are <strong>rmse_prop</strong> and <strong>aggregated_performance</strong>. The former expresses RMSE in relative terms, i.e., as a value between 0% (pessimal RMSE, equal to the spurious pairing threshold) and 100% (optimal RMSE, equal to 0). The advantage of this metric (RMSE<sub>%</sub>) is that it puts RMSE on the same scale as recall and precision, allowing all three of them to be averaged into a single indicator of performance, i.e., <code>aggregated_performance</code>. This approach is useful when a single criterion is needed, e.g. for determining which algorithm settings provide the best performance.</p>
 </div>
@@ -380,14 +378,12 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb8-17" data-line-number="17"><span class="co">#&gt; 1               0.3+/-0.5                       0             0.6094494</span></a>
 <a class="sourceLine" id="cb8-18" data-line-number="18"><span class="co">#&gt;   mean_sd_signed_lag_indices recall precision rmse_lag_indices rmse_prop</span></a>
 <a class="sourceLine" id="cb8-19" data-line-number="19"><span class="co">#&gt; 1                  0.0+/-0.6   0.71      0.71              0.6 0.9142857</span></a>
-<a class="sourceLine" id="cb8-20" data-line-number="20"><span class="co">#&gt;   aggregated_performance Rand_Index_Rand Rand_Index_HA Rand_Index_MA</span></a>
-<a class="sourceLine" id="cb8-21" data-line-number="21"><span class="co">#&gt; 1              0.7780952       0.9875879     0.3488251      0.570063</span></a>
-<a class="sourceLine" id="cb8-22" data-line-number="22"><span class="co">#&gt;   Rand_Index_FM Rand_Index_Jaccard</span></a>
-<a class="sourceLine" id="cb8-23" data-line-number="23"><span class="co">#&gt; 1     0.3550926           0.215873</span></a>
-<a class="sourceLine" id="cb8-24" data-line-number="24">    </a>
-<a class="sourceLine" id="cb8-25" data-line-number="25"></a>
-<a class="sourceLine" id="cb8-26" data-line-number="26">    <span class="co"># or:</span></a>
-<a class="sourceLine" id="cb8-27" data-line-number="27">    <span class="co"># slot(added, &quot;result&quot;)</span></a></code></pre></div>
+<a class="sourceLine" id="cb8-20" data-line-number="20"><span class="co">#&gt;   aggregated_performance</span></a>
+<a class="sourceLine" id="cb8-21" data-line-number="21"><span class="co">#&gt; 1              0.7780952</span></a>
+<a class="sourceLine" id="cb8-22" data-line-number="22">    </a>
+<a class="sourceLine" id="cb8-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb8-24" data-line-number="24">    <span class="co"># or:</span></a>
+<a class="sourceLine" id="cb8-25" data-line-number="25">    <span class="co"># slot(added, &quot;result&quot;)</span></a></code></pre></div>
 <p>Or we may be interested in looking at whether the algorithm performed better on one occasion than the other. For that, we can subtract. (<strong>NOTE:</strong> The subtraction method returns a list, not an S4 object, and the <code>differences</code> element is the item of interest.)</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">  subtracted &lt;-<span class="st"> </span>summarized1 <span class="op">-</span><span class="st"> </span>summarized2</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"></a>
