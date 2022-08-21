@@ -4,9 +4,16 @@
 \alias{new_paired_equivalence}
 \title{A combined constructor and validator for \code{paired_equivalence} objects}
 \usage{
-new_paired_equivalence(x, y, y_type = c("both", "criterion", "comparison"),
-  alpha = 0.05, na.rm = TRUE, scale = c("relative", "absolute"),
-  absolute_region_width = NULL, relative_region_width = NULL)
+new_paired_equivalence(
+  x,
+  y,
+  y_type = c("both", "criterion", "comparison"),
+  alpha = 0.05,
+  na.rm = TRUE,
+  scale = c("relative", "absolute"),
+  absolute_region_width = NULL,
+  relative_region_width = NULL
+)
 }
 \arguments{
 \item{x}{numeric vector representing the (possibly surrogate) sample}
@@ -22,7 +29,8 @@ paired with \code{x}}
 \item{na.rm}{logical. Omit mean values for mean calculations?}
 
 \item{scale}{character specifying whether the test should occur on an
-absolute or relative scale}
+absolute or relative scale. Must be one of \code{"relative"} (default) or
+\code{"absolute"}.}
 
 \item{absolute_region_width}{the region width for use when \code{scale =
 "absolute"}}

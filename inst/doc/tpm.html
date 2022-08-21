@@ -1,46 +1,75 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <meta name="author" content="Paul R. Hibbing" />
 
 
 <title>The Transition Pairing Method</title>
 
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
 
-
-<style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -49,9 +78,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -82,7 +111,30 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
 </style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
 
 
 
@@ -96,9 +148,6 @@ padding-right: 2em;
 font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 14px;
 line-height: 1.35;
-}
-#header {
-text-align: center;
 }
 #TOC {
 clear: both;
@@ -267,8 +316,12 @@ code > span.st { color: #d14; }
 code > span.co { color: #888888; font-style: italic; } 
 code > span.ot { color: #007020; } 
 code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
+
+
+
 
 </head>
 
@@ -278,142 +331,221 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 <h1 class="title toc-ignore">The Transition Pairing Method</h1>
-<h4 class="author"><em>Paul R. Hibbing</em></h4>
+<h4 class="author">Paul R. Hibbing</h4>
 
 
 
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>This vignette is designed to highlight some basic aspects of using the transition pairing method (TPM) in R. It has been written with the assumption that the reader is already familiar with the TPM itself, and is simply in need of direction on how to implement it. The core functions are <code>PAutilities::get_transition_info</code> and <code>PAutilities::spurious_curve</code>, along with S3 methods for <code>plot</code> and <code>summary</code>, and S4 methods for <code>+</code> and <code>-</code>.</p>
-<p>The TPM is used for evaluating dynamic segmentation algorithms, especially in the context of physical activity data from wearable sensors. The best example is an algorithm that aims to identify transitions between different activities. Throughout this vignette, we will suppose we are evaluating such an algorithm.</p>
+<p>This vignette is designed to highlight some basic aspects of using
+the transition pairing method (TPM) in R. It has been written with the
+assumption that the reader is already familiar with the <a href="https://pubmed.ncbi.nlm.nih.gov/34258524/">TPM itself</a>, and is
+simply in need of direction on how to implement it. The core functions
+are <code>PAutilities::get_transition_info</code> and
+<code>PAutilities::spurious_curve</code>, along with S3 methods for
+<code>plot</code> and <code>summary</code>, and S4 methods for
+<code>+</code> and <code>-</code>.</p>
+<p>The TPM is used for evaluating dynamic segmentation algorithms,
+especially in the context of physical activity data from wearable
+sensors. The best example is an algorithm that aims to identify
+transitions between different activities. Throughout this vignette, we
+will suppose we are evaluating such an algorithm.</p>
 </div>
 <div id="getting-started" class="section level2">
 <h2>Getting Started</h2>
-<p>Suppose we have two indicator vectors representing the occurrence of a transition (1) or non-transition (0) at certain time points. One vector represents a criterion measure (e.g. direct observation), and the other represents our reference measure (i.e., the aforementioned transition-detection algorithm).</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">algorithm &lt;-<span class="st"> </span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>)<span class="op">%%</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">criterion &lt;-<span class="st"> </span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>)<span class="op">%%</span><span class="dv">2</span>)</a></code></pre></div>
-<p>Ideally, the vectors have equal length. If not, the shorter vector will be expanded (with a warning), such that it has the same length as the longer vector, with transitions placed proportionally to the original. For example, suppose we have a 10-item vector with one transition:</p>
+<p>Suppose we have two indicator vectors representing the occurrence of
+a transition (1) or non-transition (0) at certain time points. One
+vector represents a criterion measure (e.g. direct observation), and the
+other represents our reference measure (i.e., the aforementioned
+transition-detection algorithm).</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>algorithm <span class="ot">&lt;-</span> (<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>)<span class="sc">%%</span><span class="dv">2</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>criterion <span class="ot">&lt;-</span> (<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>)<span class="sc">%%</span><span class="dv">2</span>)</span></code></pre></div>
+<p>Ideally, the vectors have equal length. If not, the shorter vector
+will be expanded (with a warning), such that it has the same length as
+the longer vector, with transitions placed proportionally to the
+original. For example, suppose we have a 10-item vector with one
+transition:</p>
 <p><code>{0, 0, 0, 1, 0, 0, 0, 0, 0, 0}</code></p>
-<p>The transition occurs at index 4 of 10, or 40% of the way into the vector. If we expand the vector to size 25, it will become:</p>
+<p>The transition occurs at index 4 of 10, or 40% of the way into the
+vector. If we expand the vector to size 25, it will become:</p>
 <p><code>{0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}</code></p>
-<p>The transition now occurs at index 10 of 25, still 40% of the way into the vector.</p>
+<p>The transition now occurs at index 10 of 25, still 40% of the way
+into the vector.</p>
 </div>
 <div id="running-the-tpm" class="section level2">
 <h2>Running the TPM</h2>
-<p>We will first run the TPM using a spurious pairing threshold of 7.</p>
+<p>We will first run the TPM using a spurious pairing threshold of
+7.</p>
 <p><br /></p>
-<p><strong>NOTE:</strong> In both <code>get_transition_info</code> and <code>spurious_curve</code>, the spurious pairing threshold values reflect <em>indices</em>, not necessarily seconds. In the example below, the threshold setting (<code>window_size = 7</code>) would reflect seconds if both the <code>predictions</code> and <code>references</code> objects were second-by-second variables. On the other hand, if they were 5-s epochs (i.e., 0.2 Hz sampling rate), <code>window_size = 7</code> would correspond to a 35-s lag time allowance.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">  transitions &lt;-<span class="st"> </span><span class="kw">get_transition_info</span>(</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">    <span class="dt">predictions =</span> algorithm,</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">    <span class="dt">references =</span> criterion,</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">    <span class="dt">window_size =</span> <span class="dv">7</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">  )</a></code></pre></div>
-<p>This gives us an object of class <code>transition</code>. We can first plot it.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">  <span class="kw">plot</span>(transitions)</a></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
-<p>The visualization can be nice for several purposes, not least of which is seeing which pairings (if any) were made non-sequentially and rejected by the pruning algorithm. (Non-sequential pairings are shown with red pairing lines.)</p>
-<p>To obtain performance metrics, we can summarize the <code>transitions</code> object.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">  summarized1 &lt;-<span class="st"> </span><span class="kw">summary</span>(transitions)</a></code></pre></div>
-<p>This gives an S4 object of class <code>summaryTransition</code>. The <code>result</code> slot must be accessed to obtain the metrics.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">  summarized1<span class="op">@</span>result</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt;   window_size reference_positives predicted_positives true_positives</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; 1           7                  50                  50             33</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt;   n_rejected_pairs mean_abs_lag_indices sd_abs_lag_indices</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; 1                9            0.3030303          0.5294365</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt;   mean_sd_abs_lag_indices mean_signed_lag_indices sd_signed_lag_indices</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt; 1               0.3+/-0.5             -0.06060606             0.6092718</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt;   mean_sd_signed_lag_indices recall precision rmse_lag_indices rmse_prop</span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; 1                -0.06+/-0.6   0.66      0.66              0.6 0.9142857</span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt;   aggregated_performance</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt; 1              0.7447619</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14">  <span class="co"># or:</span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15">  <span class="co"># slot(summarized1, &quot;result&quot;)</span></a></code></pre></div>
-<p><strong>NOTE:</strong> One or more versions prior to <code>PAutilities 1.0.0</code> included the <a href="https://www.tandfonline.com/doi/abs/10.1207/s15327906mbr2104_5">Rand Index</a> (in various forms) in the output. The <a href="https://cran.r-project.org/package=clues">associated package</a> is no longer supported, so this feature has been removed. At any rate, it’s not recommendable to use the Rand index, for similar reasons to the Needleman-Wunsch algorithm, as discussed elsewhere. (Background: Essentially the Rand index gives a score between 0 and 1, reflective of how well aligned the criterion and predicted segments are. Different adjustments can be applied, which you can read about in the <a href="https://www.sciencedirect.com/science/article/pii/S0167947306004786">CLUES paper</a>.)</p>
+<p><strong>NOTE:</strong> In both <code>get_transition_info</code> and
+<code>spurious_curve</code>, the spurious pairing threshold values
+reflect <em>indices</em>, not necessarily seconds. In the example below,
+the threshold setting (<code>window_size = 7</code>) would reflect
+seconds if both the <code>predictions</code> and <code>references</code>
+objects were second-by-second variables. On the other hand, if they were
+5-s epochs (i.e., 0.2 Hz sampling rate), <code>window_size = 7</code>
+would correspond to a 35-s lag time allowance.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>  transitions <span class="ot">&lt;-</span> <span class="fu">get_transition_info</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">predictions =</span> algorithm,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">references =</span> criterion,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">window_size =</span> <span class="dv">7</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p>This gives us an object of class <code>transition</code>. We can
+first plot it.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(transitions)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>The visualization can be nice for several purposes, not least of
+which is seeing which pairings (if any) were made non-sequentially and
+rejected by the pruning algorithm. (Non-sequential pairings are shown
+with red pairing lines.)</p>
+<p>To obtain performance metrics, we can summarize the
+<code>transitions</code> object.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>  summarized1 <span class="ot">&lt;-</span> <span class="fu">summary</span>(transitions)</span></code></pre></div>
+<p>This gives an S4 object of class <code>summaryTransition</code>. The
+<code>result</code> slot must be accessed to obtain the metrics.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>  summarized1<span class="sc">@</span>result</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   window_size reference_positives predicted_positives true_positives</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1           7                  50                  50             35</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   n_rejected_pairs mean_abs_lag_indices sd_abs_lag_indices</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1                9            0.3714286           0.598317</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mean_sd_abs_lag_indices mean_signed_lag_indices sd_signed_lag_indices</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1               0.4 ± 0.6               0.2571429             0.6572159</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mean_sd_signed_lag_indices recall precision rmse_lag_indices rmse_prop</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1                  0.3 ± 0.7    0.7       0.7              0.7       0.9</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   aggregated_performance</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1              0.7666667</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># or:</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># slot(summarized1, &quot;result&quot;)</span></span></code></pre></div>
+<p><strong>NOTE:</strong> One or more versions prior to
+<code>PAutilities 1.0.0</code> included the <a href="https://www.tandfonline.com/doi/abs/10.1207/s15327906mbr2104_5">Rand
+Index</a> (in various forms) in the output. The <a href="https://cran.r-project.org/package=clues">associated package</a>
+is no longer supported, so this feature has been removed. At any rate,
+it’s not recommendable to use the Rand index, for similar reasons to the
+Needleman-Wunsch algorithm, as discussed elsewhere. (Background:
+Essentially the Rand index gives a score between 0 and 1, reflective of
+how well aligned the criterion and predicted segments are. Different
+adjustments can be applied, which you can read about in the <a href="https://www.sciencedirect.com/science/article/pii/S0167947306004786">CLUES
+paper</a>.)</p>
 <p><br /></p>
-<p><strong>ANOTHER NOTE:</strong> The <code>result</code> slot also includes some extra variables, such as signed lags. Two important variables are <strong>rmse_prop</strong> and <strong>aggregated_performance</strong>. The former expresses RMSE in relative terms, i.e., as a value between 0% (pessimal RMSE, equal to the spurious pairing threshold) and 100% (optimal RMSE, equal to 0). The advantage of this metric (RMSE<sub>%</sub>) is that it puts RMSE on the same scale as recall and precision, allowing all three of them to be averaged into a single indicator of performance, i.e., <code>aggregated_performance</code>. This approach is useful when a single criterion is needed, e.g. for determining which algorithm settings provide the best performance.</p>
+<p><strong>ANOTHER NOTE:</strong> The <code>result</code> slot also
+includes some extra variables, such as signed lags. Two important
+variables are <strong>rmse_prop</strong> and
+<strong>aggregated_performance</strong>. The former expresses RMSE in
+relative terms, i.e., as a value between 0% (pessimal RMSE, equal to the
+spurious pairing threshold) and 100% (optimal RMSE, equal to 0). The
+advantage of this metric (RMSE<sub>%</sub>) is that it puts RMSE on the
+same scale as recall and precision, allowing all three of them to be
+averaged into a single indicator of performance, i.e.,
+<code>aggregated_performance</code>. This approach is useful when a
+single criterion is needed, e.g. for determining which algorithm
+settings provide the best performance.</p>
 </div>
 <div id="moving-on" class="section level2">
 <h2>Moving On</h2>
-<p>At this point, the TPM process may seem unnecessarily complicated:</p>
+<p>At this point, the TPM process may seem unnecessarily
+complicated:</p>
 <ul>
-<li>First use <code>get_transition_info</code> to obtain a <code>transition</code> object.</li>
+<li>First use <code>get_transition_info</code> to obtain a
+<code>transition</code> object.</li>
 <li>Then run <code>summary</code> on the object.</li>
 <li>Then access the <code>result</code> slot.</li>
 </ul>
 <p>Even with <code>magrittr</code> pipes, this takes up some space:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">  <span class="kw">suppressPackageStartupMessages</span>(</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">    <span class="kw">library</span>(magrittr, <span class="dt">quietly =</span> <span class="ot">TRUE</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">  )</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">  summarized &lt;-</a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">    </span><span class="kw">get_transition_info</span>(algorithm, criterion, <span class="dv">7</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="st">    </span><span class="kw">summary</span>(.) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="st">    </span><span class="kw">slot</span>(<span class="st">&quot;result&quot;</span>)</a></code></pre></div>
-<p>Here’s why that level of separation is worthwhile: It makes it possible to combine objects or look at how different they are. Let’s say we ran our algorithm on two separate occasions.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">  <span class="co"># Here I'm exploiting seed changes to get different values from the same code</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">  <span class="co"># I used previously</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">  algorithm2 &lt;-<span class="st"> </span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>)<span class="op">%%</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb7-5" data-line-number="5">  criterion2 &lt;-<span class="st"> </span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>)<span class="op">%%</span><span class="dv">2</span>)</a></code></pre></div>
-<p>We may be interested in looking at the combined performance for both occasions. For that, we can add summary objects together.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">  summarized2 &lt;-</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">    </span><span class="kw">get_transition_info</span>(algorithm2, criterion2, <span class="dv">7</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">    </span><span class="kw">summary</span>(.)</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5">  <span class="co"># Store the result of addition (another S4 summaryTransition object)</span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6">  </a>
-<a class="sourceLine" id="cb8-7" data-line-number="7">    added &lt;-<span class="st"> </span>summarized1 <span class="op">+</span><span class="st"> </span>summarized2</a>
-<a class="sourceLine" id="cb8-8" data-line-number="8">  </a>
-<a class="sourceLine" id="cb8-9" data-line-number="9">  <span class="co"># Now view the result</span></a>
-<a class="sourceLine" id="cb8-10" data-line-number="10">    </a>
-<a class="sourceLine" id="cb8-11" data-line-number="11">    added<span class="op">@</span>result</a>
-<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt;   window_size reference_positives predicted_positives true_positives</span></a>
-<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt; 1           7                 100                 100             71</span></a>
-<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt;   n_rejected_pairs mean_abs_lag_indices sd_abs_lag_indices</span></a>
-<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt; 1               16            0.3098592          0.5234924</span></a>
-<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt;   mean_sd_abs_lag_indices mean_signed_lag_indices sd_signed_lag_indices</span></a>
-<a class="sourceLine" id="cb8-17" data-line-number="17"><span class="co">#&gt; 1               0.3+/-0.5                       0             0.6094494</span></a>
-<a class="sourceLine" id="cb8-18" data-line-number="18"><span class="co">#&gt;   mean_sd_signed_lag_indices recall precision rmse_lag_indices rmse_prop</span></a>
-<a class="sourceLine" id="cb8-19" data-line-number="19"><span class="co">#&gt; 1                  0.0+/-0.6   0.71      0.71              0.6 0.9142857</span></a>
-<a class="sourceLine" id="cb8-20" data-line-number="20"><span class="co">#&gt;   aggregated_performance</span></a>
-<a class="sourceLine" id="cb8-21" data-line-number="21"><span class="co">#&gt; 1              0.7780952</span></a>
-<a class="sourceLine" id="cb8-22" data-line-number="22">    </a>
-<a class="sourceLine" id="cb8-23" data-line-number="23"></a>
-<a class="sourceLine" id="cb8-24" data-line-number="24">    <span class="co"># or:</span></a>
-<a class="sourceLine" id="cb8-25" data-line-number="25">    <span class="co"># slot(added, &quot;result&quot;)</span></a></code></pre></div>
-<p>Or we may be interested in looking at whether the algorithm performed better on one occasion than the other. For that, we can subtract. (<strong>NOTE:</strong> The subtraction method returns a list, not an S4 object, and the <code>differences</code> element is the item of interest.)</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">  subtracted &lt;-<span class="st"> </span>summarized1 <span class="op">-</span><span class="st"> </span>summarized2</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3">  subtracted<span class="op">$</span>differences</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt;   window_size diff_window_size diff_recall diff_precision</span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt; 1           7                0        -0.1           -0.1</span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt;   diff_mean_abs_lag_indices diff_mean_signed_lag_indices</span></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt; 1               -0.01275917                   -0.1132376</span></a>
-<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt;   diff_rmse_lag_indices diff_rmse_prop diff_aggregated_performance</span></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt; 1                     0              0                 -0.06666667</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">suppressPackageStartupMessages</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(magrittr, <span class="at">quietly =</span> <span class="cn">TRUE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  summarized <span class="ot">&lt;-</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get_transition_info</span>(algorithm, criterion, <span class="dv">7</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summary</span>(.) <span class="sc">%&gt;%</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slot</span>(<span class="st">&quot;result&quot;</span>)</span></code></pre></div>
+<p>Here’s why that level of separation is worthwhile: It makes it
+possible to combine objects or look at how different they are. Let’s say
+we ran our algorithm on two separate occasions.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Here I&#39;m exploiting seed changes to get different values from the same code</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># I used previously</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  algorithm2 <span class="ot">&lt;-</span> (<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>)<span class="sc">%%</span><span class="dv">2</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  criterion2 <span class="ot">&lt;-</span> (<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>)<span class="sc">%%</span><span class="dv">2</span>)</span></code></pre></div>
+<p>We may be interested in looking at the combined performance for both
+occasions. For that, we can add summary objects together.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>  summarized2 <span class="ot">&lt;-</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get_transition_info</span>(algorithm2, criterion2, <span class="dv">7</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summary</span>(.)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Store the result of addition (another S4 summaryTransition object)</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    added <span class="ot">&lt;-</span> summarized1 <span class="sc">+</span> summarized2</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Now view the result</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    added<span class="sc">@</span>result</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   window_size reference_positives predicted_positives true_positives</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1           7                 100                 100             72</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   n_rejected_pairs mean_abs_lag_indices sd_abs_lag_indices</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1               16                0.375          0.6377226</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mean_sd_abs_lag_indices mean_signed_lag_indices sd_signed_lag_indices</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1               0.4 ± 0.6               0.1527778             0.7250007</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mean_sd_signed_lag_indices recall precision rmse_lag_indices rmse_prop</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1                  0.2 ± 0.7   0.72      0.72              0.7       0.9</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   aggregated_performance</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1                   0.78</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># or:</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># slot(added, &quot;result&quot;)</span></span></code></pre></div>
+<p>Or we may be interested in looking at whether the algorithm performed
+better on one occasion than the other. For that, we can subtract.
+(<strong>NOTE:</strong> The subtraction method returns a list, not an S4
+object, and the <code>differences</code> element is the item of
+interest.)</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>  subtracted <span class="ot">&lt;-</span> summarized1 <span class="sc">-</span> summarized2</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  subtracted<span class="sc">$</span>differences</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   window_size diff_window_size diff_recall diff_precision</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1           7                0       -0.04          -0.04</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   diff_mean_abs_lag_indices diff_mean_signed_lag_indices diff_rmse_lag_indices</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1              -0.006949807                    0.2030888                  -0.1</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   diff_rmse_prop diff_aggregated_performance</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     0.01428571                 -0.02190476</span></span></code></pre></div>
 </div>
 <div id="running-a-spurious-curve-analysis" class="section level2">
 <h2>Running a spurious curve analysis</h2>
-<p>It’s useful to run your analysis for multiple values of the spurious pairing threshold. That can also be done conveniently through <code>PAutilities</code>. Let’s look at how performance changes (for our original <code>transitions</code> object, obtained when we first ran the algorithm) when we use settings of 5-10.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">  curve &lt;-<span class="st"> </span><span class="kw">spurious_curve</span>(<span class="dt">trans =</span> transitions, <span class="dt">thresholds =</span> <span class="dv">5</span><span class="op">:</span><span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">  <span class="kw">class</span>(curve)</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt; [1] &quot;list&quot;           &quot;spurious_curve&quot;</span></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">  <span class="kw">sapply</span>(curve, class)</a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt; [1] &quot;summaryTransition&quot; &quot;summaryTransition&quot; &quot;summaryTransition&quot;</span></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt; [4] &quot;summaryTransition&quot; &quot;summaryTransition&quot; &quot;summaryTransition&quot;</span></a></code></pre></div>
-<p>That gives us a list of <code>summaryTransition</code> objects for each threshold setting. The list also inherits class <code>spurious_curve</code>, which has a convenient <code>plot</code> method.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">  <span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">rep</span>(<span class="dv">3</span>,<span class="dv">4</span>))</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2">  <span class="kw">plot</span>(curve)</a></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>It’s useful to run your analysis for multiple values of the spurious
+pairing threshold. That can also be done conveniently through
+<code>PAutilities</code>. Let’s look at how performance changes (for our
+original <code>transitions</code> object, obtained when we first ran the
+algorithm) when we use settings of 5-10.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>  curve <span class="ot">&lt;-</span> <span class="fu">spurious_curve</span>(<span class="at">trans =</span> transitions, <span class="at">thresholds =</span> <span class="dv">5</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">class</span>(curve)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;list&quot;           &quot;spurious_curve&quot;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sapply</span>(curve, class)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;summaryTransition&quot; &quot;summaryTransition&quot; &quot;summaryTransition&quot;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4] &quot;summaryTransition&quot; &quot;summaryTransition&quot; &quot;summaryTransition&quot;</span></span></code></pre></div>
+<p>That gives us a list of <code>summaryTransition</code> objects for
+each threshold setting. The list also inherits class
+<code>spurious_curve</code>, which has a convenient <code>plot</code>
+method.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">3</span>,<span class="dv">4</span>))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(curve)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
 </div>
 <div id="conclusion" class="section level2">
 <h2>Conclusion</h2>
-<p>This vignette has provided a crash course in running the TPM in different ways. Setting up a full analysis can still take some work, but <code>PAutilities</code> provides solid infrastructure to help you do so in a controlled way. Suggested improvements are welcome. You can post issues or pull requests on the package <a href="http://www.github.com/paulhibbing/PAutilities">GitHub site</a>. See you there.</p>
+<p>This vignette has provided a crash course in running the TPM in
+different ways. Setting up a full analysis can still take some work, but
+<code>PAutilities</code> provides solid infrastructure to help you do so
+in a controlled way. Suggested improvements are welcome. You can post
+issues or pull requests on the package <a href="https://github.com/paulhibbing/PAutilities">GitHub site</a>. See
+you there.</p>
 </div>
 
+
+
+<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

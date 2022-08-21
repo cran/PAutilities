@@ -4,8 +4,17 @@
 \alias{paired_equivalence_wrapper}
 \title{A template function for conducting a paired equivalence test}
 \usage{
-paired_equivalence_wrapper(x, y, y_type, width, epsilon, alpha, scale, na.rm,
-  do_test = TRUE)
+paired_equivalence_wrapper(
+  x,
+  y,
+  y_type,
+  width,
+  epsilon,
+  alpha,
+  scale,
+  na.rm,
+  do_test = TRUE
+)
 }
 \arguments{
 \item{x}{numeric vector representing the (possibly surrogate) sample}
@@ -24,7 +33,8 @@ proportion of an initially-uncalculated mean}
 \item{alpha}{the alpha level for the test}
 
 \item{scale}{character specifying whether the test should occur on an
-absolute or relative scale}
+absolute or relative scale. Must be one of \code{"relative"} (default) or
+\code{"absolute"}.}
 
 \item{na.rm}{logical. Omit mean values for mean calculations?}
 

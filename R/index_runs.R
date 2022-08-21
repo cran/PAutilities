@@ -18,22 +18,33 @@
 #' head(index_runs(x))
 index_runs <- function(x, zero_index = FALSE) {
 
-  result <- do.call(
-    data.frame, rle(x)
-  ) %>% {cbind(.,
-    end_index = cumsum(.$lengths)
-  )} %>% {cbind(.,
-    start_index = .$end_index - .$lengths + 1
-  )} %>% {
-    .[ ,rev(names(.))]
+  if (is.factor(x) | !is.atomic(x)) x %<>% as.character(.)
+
+  if (!length(x)) {
+    warning(
+      "index_runs: `x` is NULL or otherwise has length 0",
+      " -- returning NULL", call. = FALSE
+    )
+    return(NULL)
   }
 
-  if (!zero_index) return(result)
+  result <-
+    rle(x) %>%
+    do.call(data.frame, .) %>%
+    data.frame(., end_index = cumsum(.$lengths)) %>%
+    data.frame(., start_index = .$end_index - .$lengths + 1L) %>%
+    rev(.)
 
-  sapply(
-    result[ ,1:2], function(y) y - 1
-  ) %>% {cbind(.,
-    result[ ,3:4]
-  )}
+  if (!zero_index) {
+
+    result
+
+  } else {
+
+    result[ ,1:2] %>%
+    sapply(`-`, 1) %>%
+    data.frame(result[ ,3:4])
+
+  }
 
 }

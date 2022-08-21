@@ -18,7 +18,7 @@ NULL
 #' @import ggplot2 dplyr methods
 NULL
 
-#' @importFrom magrittr %>% %T>%
+#' @importFrom magrittr %>% %T>% %<>%
 NULL
 
 #' @importFrom stats sd median quantile
@@ -33,9 +33,3 @@ NULL
 #' @useDynLib PAutilities, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 NULL
-
-utils::globalVariables(c(
-  "x_label", "CI_low", "CI_high",
-  "CI_sig", "low", "high", "vartype",
-  "."
-))

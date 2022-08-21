@@ -1,36 +1,36 @@
-## ----setup, include = FALSE----------------------------------------------
+## ----setup, include = FALSE---------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 library(PAutilities)
 
-## ----vectors-------------------------------------------------------------
+## ----vectors------------------------------------------------------------------
 set.seed(100)
 algorithm <- (sample(1:100)%%2)
 criterion <- (sample(1:100)%%2)
 
-## ----TPM7----------------------------------------------------------------
+## ----TPM7---------------------------------------------------------------------
   transitions <- get_transition_info(
     predictions = algorithm,
     references = criterion,
     window_size = 7
   )
 
-## ----TPM7plot, fig.width=7, fig.height=5---------------------------------
+## ----TPM7plot, fig.width=7, fig.height=5--------------------------------------
   plot(transitions)
 
-## ----TPM7summarize-------------------------------------------------------
+## ----TPM7summarize------------------------------------------------------------
   summarized1 <- summary(transitions)
 
-## ----slots---------------------------------------------------------------
+## ----slots--------------------------------------------------------------------
   summarized1@result
 
 
   # or:
   # slot(summarized1, "result")
 
-## ----pipes, message=FALSE, warning=FALSE---------------------------------
+## ----pipes, message=FALSE, warning=FALSE--------------------------------------
   suppressPackageStartupMessages(
     library(magrittr, quietly = TRUE, verbose = FALSE)
   )
@@ -40,14 +40,14 @@ criterion <- (sample(1:100)%%2)
     summary(.) %>%
     slot("result")
 
-## ----occasions-----------------------------------------------------------
+## ----occasions----------------------------------------------------------------
   # Here I'm exploiting seed changes to get different values from the same code
   # I used previously
 
   algorithm2 <- (sample(1:100)%%2)
   criterion2 <- (sample(1:100)%%2)
 
-## ----add-----------------------------------------------------------------
+## ----add----------------------------------------------------------------------
   summarized2 <-
     get_transition_info(algorithm2, criterion2, 7) %>%
     summary(.)
@@ -64,17 +64,17 @@ criterion <- (sample(1:100)%%2)
     # or:
     # slot(added, "result")
 
-## ----subtract------------------------------------------------------------
+## ----subtract-----------------------------------------------------------------
   subtracted <- summarized1 - summarized2
 
   subtracted$differences
 
-## ----spurious------------------------------------------------------------
+## ----spurious-----------------------------------------------------------------
   curve <- spurious_curve(trans = transitions, thresholds = 5:10)
   class(curve)
   sapply(curve, class)
 
-## ----spur_plot, fig.width=7, fig.height=5--------------------------------
+## ----spur_plot, fig.width=7, fig.height=5-------------------------------------
   par(mar=rep(3,4))
   plot(curve)
 

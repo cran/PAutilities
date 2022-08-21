@@ -8,7 +8,8 @@
 #' @param alpha the alpha level for the test
 #' @param na.rm logical. Omit mean values for mean calculations?
 #' @param scale character specifying whether the test should occur on an
-#'   absolute or relative scale
+#'   absolute or relative scale. Must be one of \code{"relative"} (default) or
+#'   \code{"absolute"}.
 #' @param absolute_region_width the region width for use when \code{scale =
 #'   "absolute"}
 #' @param relative_region_width the region width for use when \code{scale =
@@ -18,7 +19,7 @@
 #' @return a `paired_equivalence` object summarizing the test input and results
 #' @note If a value is not specified for the region width that corresponds with
 #'   \code{scale}, a default value will be assigned with a warning.
-#' @references \href{https://www.ncbi.nlm.nih.gov/pubmed/29135817}{Dixon et al.}
+#' @references \href{https://pubmed.ncbi.nlm.nih.gov/29135817/}{Dixon et al.}
 #' @export
 #'
 #' @examples

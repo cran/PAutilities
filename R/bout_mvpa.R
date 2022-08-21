@@ -61,13 +61,17 @@
 #'
 #' @export
 #'
-bout_mvpa <-
-  function(intensity, var_type = c("METs", "Intensity"),
-    min_duration = 10, termination = 3, MoreArgs =
-      list(breaks = c(-Inf, 1.51, 3, Inf),
-           labels = c("SB", "LPA", "MVPA"),
-           right = FALSE), ..., timestamps = NULL,
-    output_var = c("is_MVPA", "bout_tracker")) {
+bout_mvpa <- function(
+  intensity, var_type = c("METs", "Intensity"),
+  min_duration = 10, termination = 3,
+  MoreArgs = list(
+    breaks = c(-Inf, 1.51, 3, Inf),
+    labels = c("SB", "LPA", "MVPA"),
+    right = FALSE
+  ),
+  ..., timestamps = NULL,
+  output_var = c("is_MVPA", "bout_tracker")
+) {
 
   # Set up
     if (is.null(timestamps)) {
