@@ -74,7 +74,13 @@ criterion <- (sample(1:100)%%2)
   class(curve)
   sapply(curve, class)
 
+## ----store_opts, include=FALSE------------------------------------------------
+  oldpar <- par(no.readonly = TRUE)
+
 ## ----spur_plot, fig.width=7, fig.height=5-------------------------------------
   par(mar=rep(3,4))
   plot(curve)
+
+## ----restore_opts, include=FALSE----------------------------------------------
+  par(oldpar)
 

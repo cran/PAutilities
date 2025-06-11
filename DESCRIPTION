@@ -1,7 +1,7 @@
 Package: PAutilities
 Type: Package
 Title: Streamline Physical Activity Research
-Version: 1.1.0
+Version: 1.2.1
 Authors@R: c(
     person(
       c("Paul", "R."), "Hibbing", email = "paulhibbing@gmail.com",
@@ -9,19 +9,19 @@ Authors@R: c(
     person(
       "Centers for Disease Control and Prevention", role = "ctb"))
 Depends: R (>= 3.5.0)
-Description: A collection of utilities that are useful for a broad range of
-    tasks that are common in physical activity research, including the
-    following: creation of Bland-Altman plots, formatted descriptive
-    statistics, metabolic calculations (e.g. basal metabolic rate predictions)
-    and conversions, demographic calculations (age and age-for-body-mass-index
-    percentile), bout analysis of moderate-to-vigorous intensity physical
-    activity, and analysis of bout detection algorithm performance.
+Description: Functions that support a broad range of common tasks in physical
+    activity research, including but not limited to creation of Bland-Altman
+    plots (<doi:10.1136/bmj.313.7049.106>), metabolic calculations such as basal
+    metabolic rate predictions (<https://europepmc.org/article/med/4044297/reloa>),
+    demographic calculations such as age-for-body-mass-index percentile
+    (<https://www.cdc.gov/growthcharts/cdc_charts.htm>), and analysis of bout
+    detection algorithm performance (<https://pubmed.ncbi.nlm.nih.gov/34258524/>).
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/paulhibbing/PAutilities
 BugReports: https://github.com/paulhibbing/PAutilities/issues
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 Imports: dplyr (>= 0.7), equivalence, ggplot2 (>= 2.2), graphics,
         lazyeval (>= 0.2), lubridate (>= 1.7.4), magrittr (>= 1.5),
         methods, reshape2, rlang (>= 0.3.1), stats, utils, Rcpp
@@ -29,9 +29,9 @@ Suggests: testthat, knitr, rmarkdown, matchingMarkets (>= 1.0.1)
 VignetteBuilder: knitr
 LinkingTo: Rcpp
 NeedsCompilation: yes
-Packaged: 2022-08-21 03:55:15 UTC; prhibbing
+Packaged: 2025-06-07 20:50:48 UTC; phibbing
 Author: Paul R. Hibbing [aut, cre],
   Centers for Disease Control and Prevention [ctb]
 Maintainer: Paul R. Hibbing <paulhibbing@gmail.com>
 Repository: CRAN
-Date/Publication: 2022-08-21 04:40:02 UTC
+Date/Publication: 2025-06-11 15:30:11 UTC

@@ -66,11 +66,11 @@ full_days_continuous <- function(
 #'   than one second (e.g., for raw accelerometry data). Thus, it is not
 #'   possible to base the code on convenient \code{difftime} methods. Instead,
 #'   numeric operations are performed after running \code{unclass} on the input.
-#'   This sometimes results in miniscule fluctuations of the calculated epoch
+#'   This sometimes results in minuscule fluctuations of the calculated epoch
 #'   length (e.g., +/- 0.0000002). Thus, the code rounds everything to the
 #'   precision indicated by \code{digits}. For most applications, the default
 #'   value (\code{digits = 6}) should be well past the range of meaningful
-#'   fluctuations and lead to a favorable outcome. But the \code{ditits}
+#'   fluctuations and lead to a favorable outcome. But the \code{digits}
 #'   argument can also be adjusted if greater assurance is needed.
 #'
 #'   After rounding, the code checks for the existence of multiple epoch
@@ -147,6 +147,9 @@ epoch_length_sec <- function(timestamps, digits = 6) {
 #'   either \code{warn} (the default) or \code{stop}
 #' @param ... arguments passed to \code{as.POSIXct}, for use if \code{time_var}
 #'   is a character rather than \code{POSIXt} variable
+#'
+#' @return an updated copy of \code{df}, in which incomplete days are addressed
+#'   according to the selected value of \code{drop}.
 #'
 #' @seealso \code{\link{df_continuous}}
 #' @export
@@ -271,6 +274,9 @@ full_days <- function(
 #' Check if a dataframe is continuous
 #'
 #' @inheritParams full_days
+#'
+#' @return a logical scalar indicating whether the dataframe reflects a
+#'   continuous time series
 #'
 #' @export
 #'
