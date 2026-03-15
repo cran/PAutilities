@@ -1,3 +1,14 @@
+# PAutilities 1.3.0
+
+## What's new:
+
+* Reversed operand order when calculating bias in `ba_analysis`
+* Added a reintegration function
+* Updated ggplot2 code and dependency
+* Modernized `roxygen2` usage
+
+
+
 # PAutilities 1.2.1
 
 ## What's new:
